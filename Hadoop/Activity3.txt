@@ -1,0 +1,78 @@
+--------------salesCSV.pig----
+-- Load the CSV file
+salesTable = LOAD 'hdfs:///user/root/sales.csv' USING PigStorage(',') AS (Product:chararray,Price:chararray,Payment_Type:chararray,Name:chararray,City:chararray,State:chararray,Country:chararray);
+-- Group data using the country column
+GroupByCountry = GROUP salesTable BY Country;
+-- Generate result format
+CountByCountry = FOREACH GroupByCountry GENERATE CONCAT((chararray)$0, CONCAT(':', (chararray)COUNT($1)));
+-- Save result in HDFS folder
+STORE CountByCountry INTO 'salesOutput' USING PigStorage('\t');
+
+--------Execution---
+root@d6dfa3b1faaf:/# vim sales.csv
+root@d6dfa3b1faaf:/# hdfs dfs -put ./sales.csv /user/root/
+root@d6dfa3b1faaf:/# hdfs dfs -cat /user/root/sales.csv
+Product,Price,Payment_Type,Name,City,State,Country
+Product1,1200,Mastercard,carolina,Basildon,England,United Kingdom
+Product1,1200,Visa,Betina,Parkville,MO,United States
+Product1,1200,Mastercard,Federica e Andrea,Astoria,OR,United States
+Product1,1200,Visa,Gouya,Echuca,Victoria,Australia
+Product2,3600,Visa,Gerd W ,Cahaba Heights,AL,United States
+Product1,1200,Visa,LAURENCE,Mickleton,NJ,United States
+Product1,1200,Mastercard,Fleur,Peoria ,IL,United States
+Product1,1200,Mastercard,adam,Martin ,TN,United States
+Product1,1200,Mastercard,Renee Elisabeth,Tel Aviv,Tel Aviv,Israel
+Product1,1200,Visa,Aidan,Chatou,Ile-de-France,France
+Product1,1200,Diners,Stacy,New York ,NY,United States
+Product1,1200,Amex,Heidi,Eindhoven,Noord-Brabant,Netherlands
+Product1,1200,Mastercard,Sean ,Shavano Park,TX,United States
+Product1,1200,Visa,Georgia,Eagle,ID,United States
+root@d6dfa3b1faaf:/# vim salesCSV.pig
+root@d6dfa3b1faaf:/# hdfs dfs -put ./salesCSV.pig /user/root/
+root@d6dfa3b1faaf:/# pig salesCSV.pig
+2021-09-15 12:17:21,674 [main] INFO  org.apache.hadoop.yarn.client.DefaultNoHARMFailoverProxyProvider - Connecting to ResourceManager at /0.0.0.0:8032
+2021-09-15 12:17:21,690 [main] INFO  org.apache.hadoop.mapred.ClientServiceDelegate - Application state is completed. FinalApplicationStatus=SUCCEEDED. Redirecting to job history server
+2021-09-15 12:17:21,754 [main] INFO  org.apache.hadoop.yarn.client.DefaultNoHARMFailoverProxyProvider - Connecting to ResourceManager at /0.0.0.0:8032
+2021-09-15 12:17:21,770 [main] INFO  org.apache.hadoop.mapred.ClientServiceDelegate - Application state is completed. FinalApplicationStatus=SUCCEEDED. Redirecting to job history server
+2021-09-15 12:17:21,926 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 100% complete
+2021-09-15 12:17:21,943 [main] INFO  org.apache.pig.tools.pigstats.mapreduce.SimplePigStats - Script Statistics:
+
+HadoopVersion   PigVersion      UserId  StartedAt       FinishedAt      Features
+3.3.1   0.17.0  root    2021-09-15 12:15:27     2021-09-15 12:17:21     GROUP_BY
+
+Success!
+
+Job Stats (time in seconds):
+JobId   Maps    Reduces MaxMapTime      MinMapTime      AvgMapTime      MedianMapTime   MaxReduceTime   MinReduceTime   AvgReduceTime   MedianReducetime Alias   Feature Outputs
+job_1631706957922_0002  1       1       29      29      29      29      8       8       8       8       CountByCountry,GroupByCountry,salesTable
+GROUP_BY,COMBINER       hdfs://d6dfa3b1faaf:9000/user/root/salesOutput,
+
+Input(s):
+Successfully read 15 records (1230 bytes) from: "hdfs:///user/root/sales.csv"
+
+Output(s):
+Successfully stored 7 records (87 bytes) in: "hdfs://d6dfa3b1faaf:9000/user/root/salesOutput"
+
+Counters:
+Total records written : 7
+Total bytes written : 87
+Spillable Memory Manager spill count : 0
+Total bags proactively spilled: 0
+Total records proactively spilled: 0
+
+Job DAG:
+job_1631706957922_0002
+2021-09-15 12:17:22,593 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Success!
+2021-09-15 12:17:22,654 [main] INFO  org.apache.pig.Main - Pig script completed in 1 minute, 59 seconds and 25 milliseconds (119025 ms)
+root@d6dfa3b1faaf:/# hdfs dfs -ls -R /user/root/salesOutput
+-rw-r--r--   1 root supergroup          0 2021-09-15 12:17 /user/root/salesOutput/_SUCCESS
+-rw-r--r--   1 root supergroup         87 2021-09-15 12:17 /user/root/salesOutput/part-r-00000
+root@d6dfa3b1faaf:/# hdfs dfs -cat /user/root/salesOutput/part-r-00000
+France:1
+Israel:1
+Country:1
+Australia:1
+Netherlands:1
+United States:9
+United Kingdom:1
+root@d6dfa3b1faaf:/#

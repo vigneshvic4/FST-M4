@@ -1,0 +1,58 @@
+vim file01.txt
+hdfs dfs -put ./file01.txt /user/root/
+vim wordcount.pig
+hdfs dfs -put ./wordcount.pig /user/root/
+pig wordcount.pig
+hdfs dfs -ls /user/root/results
+hdfs dfs -cat /user/root/results/part-r-00000
+----file01.txt----
+Hello World Bye World
+----wordcount.pig-----
+-- Load input file from HDFS
+inputFile = LOAD 'hdfs:///user/root/file01.txt' AS (line);
+-- Tokeize each word in the file (Map)
+words = FOREACH inputFile GENERATE FLATTEN(TOKENIZE(line)) AS word;
+-- Combine the words from the above stage
+grpd = GROUP words BY word;
+-- Count the occurence of each word (Reduce)
+cntd = FOREACH grpd GENERATE group, COUNT(words);
+-- Store the result in HDFS
+STORE cntd INTO 'hdfs:///user/root/results';
+--------------
+root@d50608112b8b:/# vim file01.txt
+root@d50608112b8b:/# hdfs dfs -put ./file01.txt /user/root/
+root@d50608112b8b:/# vim wordcount.pig
+root@d50608112b8b:/# hdfs dfs -put ./wordcount.pig /user/root/
+root@d50608112b8b:/# pig wordcount.pig
+
+2021-09-15 05:16:33,190 [main] INFO  org.apache.hadoop.mapred.ClientServiceDelegate - Application state is completed. FinalApplicationStatus=SUCCEEDED. Redirecting to job history server
+2021-09-15 05:16:33,312 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - 100% complete
+2021-09-15 05:16:33,323 [main] INFO  org.apache.pig.tools.pigstats.mapreduce.SimplePigStats - Script Statistics:
+
+HadoopVersion   PigVersion      UserId  StartedAt       FinishedAt      Features
+3.3.1   0.17.0  root    2021-09-15 05:15:59     2021-09-15 05:16:33     GROUP_BY
+
+Success!
+
+Job Stats (time in seconds):
+JobId   Maps    Reduces MaxMapTime      MinMapTime      AvgMapTime      MedianMapTime   MaxReduceTime   MinReduceTime  AvgReduceTime            MedianReducetime Alias   Feature Outputs
+job_1631591043217_0025  1       1       4       4       4       4       3       3       3       3       cntd,grpd,inputFile,words               GROUP_BY,COMBINER        hdfs:///user/root/results,
+
+Input(s):
+Successfully read 1 records (394 bytes) from: "hdfs:///user/root/file01.txt"
+
+Output(s):
+Successfully stored 3 records (22 bytes) in: "hdfs:///user/root/results"
+
+2021-09-15 05:16:33,541 [main] INFO  org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceLauncher - Success!
+2021-09-15 05:16:33,594 [main] INFO  org.apache.pig.Main - Pig script completed in 36 seconds and 971 milliseconds (36971 ms)
+
+root@d50608112b8b:/# hdfs dfs -ls /user/root/results
+Found 2 items
+-rw-r--r--   1 root supergroup          0 2021-09-15 05:16 /user/root/results/_SUCCESS
+-rw-r--r--   1 root supergroup         22 2021-09-15 05:16 /user/root/results/part-r-00000
+root@d50608112b8b:/# hdfs dfs -cat /user/root/results/part-r-00000
+Bye     1
+Hello   1
+World   2
+------------------------------------------

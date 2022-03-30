@@ -1,0 +1,376 @@
+vim episodeIV_dialouges.txt
+vim episodeV_dialouges.txt
+vim episodeVI_dialouges.txt
+ls -l
+root@d50608112b8b:/# hive
+--For Episode IV--------------------------------------------------------------
+hive> CREATE TABLE episodeIV (name STRING, line STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' TBLPROPERTIES ("skip.header.line.count"="2");
+hive> LOAD DATA LOCAL INPATH '/episodeIV_dialouges.txt' INTO TABLE episodeIV;
+hive> SELECT name,COUNT(name) AS no_of_lines from episodeIV GROUP BY name ORDER BY no_of_lines;
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 13.32 sec   HDFS Read: 147549 HDFS Write: 2019 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 7.69 sec   HDFS Read: 9539 HDFS Write: 1765 SUCCESS
+Total MapReduce CPU Time Spent: 21 seconds 10 msec
+OK
+ASTRO-OFFICER   2
+WINGMAN'S VOICE 2
+WINGMAN 2
+VOICE OVER DEATH STAR INTERCOM  2
+TROOPER VOICE   2
+TECHNICIAN      2
+SECOND OFFICER  2
+RED TEN'S VOICE 2
+RED SEVEN       2
+RED NINE'S VOICE        2
+RED NINE        2
+RED LEADER'S VOICE      2
+RED ELEVEN      2
+REBEL OFFICER   2
+PORKINS 2
+OFFICER CASS    2
+MAN'S VOICE     2
+LUKE'S VOICE    2
+WOMAN   2
+HAN'S VOICE     2
+FIRST OFFICER   2
+DEAK    2
+CREATURE        2
+CONTROL OFFICER 2
+CHIEF PILOT     2
+CAPTAIN 2
+BERU    2
+BASE VOICE      2
+GOLD TWO        4
+WILLARD 4
+GANTRY OFFICER  4
+CHIEF   4
+FIXER   4
+IMPERIAL OFFICER        4
+CAMIE   4
+SECOND TROOPER  6
+BARTENDER       6
+COMMANDER       6
+VOICE   6
+MASSASSI INTERCOM VOICE 6
+TAGGE   8
+MOTTI   8
+HUMAN   8
+DODONNA 12
+GREEDO  12
+INTERCOM VOICE  12
+FIRST TROOPER   12
+JABBA   12
+AUNT BERU       12
+BEN'S VOICE     12
+DEATH STAR INTERCOM VOICE       12
+RED TEN 14
+GOLD FIVE       14
+OFFICER 22
+WEDGE   28
+GOLD LEADER     28
+TROOPER 38
+OWEN    50
+TARKIN  56
+BIGGS   68
+RED LEADER      72
+VADER   82
+LEIA    114
+BEN     152
+THREEPIO        238
+HAN     304
+LUKE    506
+Time taken: 81.853 seconds, Fetched: 67 row(s)
+
+--For Episode V----------------------------------------------------------------------------------------
+hive> CREATE TABLE episodeV (name STRING, line STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' TBLPROPERTIES ("skip.header.line.count"="2");
+hive> LOAD DATA LOCAL INPATH '/episodeV_dialouges.txt' INTO TABLE episodeV;
+hive> SELECT name,COUNT(name) AS no_of_lines from episodeVI GROUP BY name ORDER BY no_of_lines;
+MapReduce Jobs Launched:
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 16.2 sec   HDFS Read: 55876 HDFS Write: 4792 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 8.89 sec   HDFS Read: 12312 HDFS Write: 4253 SUCCESS
+Total MapReduce CPU Time Spent: 25 seconds 90 msec
+OK
+YODA (tickled, chuckles)        1
+YODA (shakes his head)  1
+YODA (gathering all his strength)       1
+Y-WING PILOT    1
+WEDGE (VO)      1
+WALKER PILOT #1 1
+VOICE (OS)      1
+VADER (turning to face him)     1
+VADER (skeptical)       1
+VADER (indicating lightsaber)   1
+VADER (bows)    1
+VADER (after a beat)    1
+VADER (a whisper)       1
+THREEPIO (to Wicket)    1
+THREEPIO (to Artoo)     1
+THREEPIO (still shaken) 1
+THREEPIO (instantly)    1
+THREEPIO (disappearing) 1
+THREEPIO (cont) 1
+STRANGE VOICE   1
+STORMTROOPER (OS)       1
+SECOND COMMANDER        1
+SCOUT #l        1
+SCOUT #2        1
+SCOUT   1
+RED TWO 1
+RED THREE       1
+RED LEADER (VO) 1
+PILOT VOICE (HAN)(filtered)     1
+PILOT #2        1
+PILOT   1
+PIETT (surprised)       1
+PIETT (into comlink)    1
+OPERATOR        1
+OOLA    1
+OFFICER 1
+NINEDENINE (to a Gamorrean guard)       1
+NAVIGATOR       1
+MON MOTHMA (cont)       1
+LURE    1
+LUKE (with sadness)     1
+LUKE (turning away, derisive)   1
+LUKE (to Leia)  1
+LUKE (shrugging it off) 1
+LUKE (sarcastic)        1
+LUKE (pointing to the controls) 1
+LUKE (moving to his ship)       1
+LUKE (indicating the one ahead) 1
+LUKE (hesitant) 1
+LUKE (groans)   1
+LUKE (cont)     1
+LUKE (concerned)        1
+LEIA (to Han)   1
+LEIA (softly)   1
+LEIA (over comlink)     1
+LEIA (into comlink)     1
+LEIA (alarmed)  1
+LANDO (to himself)      1
+LANDO (smiling) 1
+LANDO (over comlink)    1
+LANDO (into comlink)    1
+LANDO (desperately)     1
+JERJERROD (aghast)      1
+JABBA (cont Huttese subtitled)  1
+HAN/PILOT (VO)  1
+HAN and LUKE    1
+HAN (with self-confident grin)  1
+HAN (whispering to himself)     1
+HAN (turning to Luke)   1
+HAN (to Luke)   1
+HAN (to Leia)   1
+HAN (smiles)    1
+HAN (sighs)     1
+HAN (sarcastic) 1
+HAN (over comlink)      1
+HAN (loses his temper)  1
+HAN (looks at him warmly)       1
+HAN (grins)     1
+HAN (gravely)   1
+HAN (chuckles)  1
+HAN (blinking)  1
+HAN (angry)     1
+HAN (OS)        1
+GREEN LEADER    1
+GRAY LEADER     1
+EMPEROR (very cool)     1
+EMPEROR (to Vader)      1
+EMPEROR (to Luke)       1
+EMPEROR (no surprise)   1
+EMPEROR (laughs)        1
+EMPEROR (laughing)      1
+EMPEROR (cont)  1
+EMPEROR (angry) 1
+DEATH STAR CONTROLLER(filtered VO)      1
+CONTROLLER (filtered)   1
+CONTROL ROOM COMMANDER  1
+BUNKER COMMANDER        1
+BIB (in Huttese subtitled)      1
+BEN (grinning at Luke's indignation)    1
+BEN (continuing his narrative)  1
+BEN (attempting to give solace with his words)  1
+BEN (OS)        1
+ANAKIN (very weak)      1
+ANAKIN  1
+ACKBAR (cont)   1
+GENERAL MADINE  2
+CONTROLLER (over radio) 2
+ACKBAR (VO)     2
+BOUSHH (in Ubese subtitled)     2
+CONTROLLER      2
+MON MOTHMA      2
+GUARD   2
+SHUTTLE CAPTAIN 2
+SCOUT #1        2
+HAN (cont)      3
+REBEL PILOT     3
+JABBA   4
+BIB     5
+BOUSHH  5
+NINEDENINE      5
+STORMTROOPER    5
+JERJERROD       6
+PIETT   6
+COMMANDER       7
+YODA    10
+WEDGE   10
+ACKBAR  11
+BEN     14
+JABBA (in Huttese subtitled)    15
+EMPEROR 31
+LANDO   35
+VADER   37
+LEIA    51
+THREEPIO        84
+LUKE    100
+HAN     104
+Time taken: 74.305 seconds, Fetched: 136 row(s)
+
+--For Episode VI---------------------------------------------------------------------------------------
+hive> CREATE TABLE episodeVI (name STRING, line STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t' TBLPROPERTIES ("skip.header.line.count"="2");
+hive> LOAD DATA LOCAL INPATH '/episodeVI_dialouges.txt' INTO TABLE episodeVI;
+hive> SELECT name,COUNT(name) AS no_of_lines from episodeVI GROUP BY name ORDER BY no_of_lines;
+
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 14.51 sec   HDFS Read: 55764 HDFS Write: 4792 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 10.64 sec   HDFS Read: 12312 HDFS Write: 4253 SUCCESS
+Total MapReduce CPU Time Spent: 25 seconds 150 msec
+OK
+YODA (tickled, chuckles)        1
+YODA (shakes his head)  1
+YODA (gathering all his strength)       1
+Y-WING PILOT    1
+WEDGE (VO)      1
+WALKER PILOT #1 1
+VOICE (OS)      1
+VADER (turning to face him)     1
+VADER (skeptical)       1
+VADER (indicating lightsaber)   1
+VADER (bows)    1
+VADER (after a beat)    1
+VADER (a whisper)       1
+THREEPIO (to Wicket)    1
+THREEPIO (to Artoo)     1
+THREEPIO (still shaken) 1
+THREEPIO (instantly)    1
+THREEPIO (disappearing) 1
+THREEPIO (cont) 1
+STRANGE VOICE   1
+STORMTROOPER (OS)       1
+SECOND COMMANDER        1
+SCOUT #l        1
+SCOUT #2        1
+SCOUT   1
+RED TWO 1
+RED THREE       1
+RED LEADER (VO) 1
+PILOT VOICE (HAN)(filtered)     1
+PILOT #2        1
+PILOT   1
+PIETT (surprised)       1
+PIETT (into comlink)    1
+OPERATOR        1
+OOLA    1
+OFFICER 1
+NINEDENINE (to a Gamorrean guard)       1
+NAVIGATOR       1
+MON MOTHMA (cont)       1
+LURE    1
+LUKE (with sadness)     1
+LUKE (turning away, derisive)   1
+LUKE (to Leia)  1
+LUKE (shrugging it off) 1
+LUKE (sarcastic)        1
+LUKE (pointing to the controls) 1
+LUKE (moving to his ship)       1
+LUKE (indicating the one ahead) 1
+LUKE (hesitant) 1
+LUKE (groans)   1
+LUKE (cont)     1
+LUKE (concerned)        1
+LEIA (to Han)   1
+LEIA (softly)   1
+LEIA (over comlink)     1
+LEIA (into comlink)     1
+LEIA (alarmed)  1
+LANDO (to himself)      1
+LANDO (smiling) 1
+LANDO (over comlink)    1
+LANDO (into comlink)    1
+LANDO (desperately)     1
+JERJERROD (aghast)      1
+JABBA (cont Huttese subtitled)  1
+HAN/PILOT (VO)  1
+HAN and LUKE    1
+HAN (with self-confident grin)  1
+HAN (whispering to himself)     1
+HAN (turning to Luke)   1
+HAN (to Luke)   1
+HAN (to Leia)   1
+HAN (smiles)    1
+HAN (sighs)     1
+HAN (sarcastic) 1
+HAN (over comlink)      1
+HAN (loses his temper)  1
+HAN (looks at him warmly)       1
+HAN (grins)     1
+HAN (gravely)   1
+HAN (chuckles)  1
+HAN (blinking)  1
+HAN (angry)     1
+HAN (OS)        1
+GREEN LEADER    1
+GRAY LEADER     1
+EMPEROR (very cool)     1
+EMPEROR (to Vader)      1
+EMPEROR (to Luke)       1
+EMPEROR (no surprise)   1
+EMPEROR (laughs)        1
+EMPEROR (laughing)      1
+EMPEROR (cont)  1
+EMPEROR (angry) 1
+DEATH STAR CONTROLLER(filtered VO)      1
+CONTROLLER (filtered)   1
+CONTROL ROOM COMMANDER  1
+BUNKER COMMANDER        1
+BIB (in Huttese subtitled)      1
+BEN (grinning at Luke's indignation)    1
+BEN (continuing his narrative)  1
+BEN (attempting to give solace with his words)  1
+BEN (OS)        1
+ANAKIN (very weak)      1
+ANAKIN  1
+ACKBAR (cont)   1
+GENERAL MADINE  2
+CONTROLLER (over radio) 2
+ACKBAR (VO)     2
+BOUSHH (in Ubese subtitled)     2
+CONTROLLER      2
+MON MOTHMA      2
+GUARD   2
+SHUTTLE CAPTAIN 2
+SCOUT #1        2
+HAN (cont)      3
+REBEL PILOT     3
+JABBA   4
+BIB     5
+BOUSHH  5
+NINEDENINE      5
+STORMTROOPER    5
+JERJERROD       6
+PIETT   6
+COMMANDER       7
+YODA    10
+WEDGE   10
+ACKBAR  11
+BEN     14
+JABBA (in Huttese subtitled)    15
+EMPEROR 31
+LANDO   35
+VADER   37
+LEIA    51
+THREEPIO        84
+LUKE    100
+HAN     104
+Time taken: 91.503 seconds, Fetched: 136 row(s)
